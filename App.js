@@ -13,9 +13,10 @@ import SearchScreen from "./pages/SearchScreen";
 import ContactFormScreen from "./pages/ContactFormScreen";
 import Search from "./layout/Search";
 import Realm from "realm";
+import { openDatabase } from "react-native-sqlite-storage";
 
 const TaskSchema = {
-  name: "Task1",
+  name: "Task",
   properties: {
     _id: "int",
     name: "string",
@@ -27,27 +28,29 @@ const TaskSchema = {
 let task1, task2;
 (async () => {
   const realm = await Realm.open({
-    path: "myrealm",
+    path: "testing",
     schema: [TaskSchema],
   });
+  //console.log(realm);
 
-  // realm.write(() => {
-  //   task1 = realm.create("Task1", {
-  //     _id: 1,
-  //     name: "go grocery shopping",
-  //     status: "Open",
-  //   });
-  //   task2 = realm.create("Task1", {
-  //     _id: 2,
-  //     name: "go exercise",
-  //     status: "Open",
-  //   });
-  //   console.log(`created two tasks: ${task1.name} & ${task2.name}`);
-  // });
+  realm.write(() => {
+    task1 = realm.create("Task", {
+      _id: 10,
+      name: "go grocery shopping",
+      status: "Open",
+    });
+    task2 = realm.create("Task", {
+      _id: 11,
+      name: "go exercise",
+      status: "Open",
+    });
+    console.log(`created two tasks: ${task1.name} & ${task2.name}`);
+  });
 
   // query realm for all instances of the "Task" type.
-  const tasks = realm.objects("Task1");
-  console.log(`The lists of tasks are: ${tasks.map((task) => task.name)}`);
+  const tasks = realm.objects("Task");
+  //console.log(tasks);
+  console.log(`The lists of tasks are: ${tasks.map((task) => task._id)}`);
 })();
 
 const AppWrapper = () => {

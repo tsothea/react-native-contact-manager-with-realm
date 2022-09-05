@@ -6,7 +6,6 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
-import Profile from "./Profile";
 
 const CustomSidebarMenu = (props) => {
   return (
@@ -15,14 +14,6 @@ const CustomSidebarMenu = (props) => {
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-      <Text
-        style={{ fontSize: 16, textAlign: "center", color: "grey" }}
-        onPress={() => {
-          Linking.openURL("https://www.vodworks.com");
-        }}
-      >
-        www.vodworks.com
-      </Text>
     </SafeAreaView>
   );
 };
